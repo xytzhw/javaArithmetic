@@ -85,7 +85,11 @@ public class BinaryTree {
         return getSize(root);
     }
     public int getSize(TreeNode node){
-        return 1+getSize(node.leftChild)+getSize(node.rightChild);
+        if(node == null){
+            return 0;
+        }else {
+            return 1+getSize(node.leftChild)+getSize(node.rightChild);
+        }
     }
 
     /**
@@ -122,5 +126,53 @@ public class BinaryTree {
                 stack.push(n.leftChild);
             }
         }
+    }
+
+    /**
+     * 中序遍历（左根右）
+     */
+    public void midOrder(TreeNode node){
+        if(node == null){
+            return;
+        }else{
+            midOrder(node.leftChild);
+            System.out.println("midOrder data:"+node.getData());
+            midOrder(node.rightChild);
+        }
+    }
+
+    /**
+     * 后续遍历（左右根）
+     */
+    public void postOrder(TreeNode node){
+        if(node == null){
+            return;
+        }else {
+            postOrder(node.leftChild);
+            postOrder(node.rightChild);
+            System.out.println("postOrder data:"+node.getData());
+        }
+    }
+
+    /**
+     * 测试方法
+     */
+    public static void main(String[] args){
+        BinaryTree binaryTree = new BinaryTree();
+        binaryTree.createBinaryTree();
+        //获取树的高
+        int height = binaryTree.getHeight();
+        System.out.println("treeHeight:"+height);
+        //获取树的长度
+        int size = binaryTree.getSize();
+        System.out.println("treeSize:"+size);
+        //前序遍历
+        binaryTree.preOrder(binaryTree.root);
+        //前序（非遍历）
+        binaryTree.nonRecOrder(binaryTree.root);
+        //中序遍历
+        binaryTree.midOrder(binaryTree.root);
+        //后续遍历
+        binaryTree.postOrder(binaryTree.root);
     }
 }
